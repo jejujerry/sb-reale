@@ -110,8 +110,13 @@ public class SheetsQuickstart {
 //                );
 //            }
             for (List row : values) {
-                System.out.printf("%s, %s, %s, %s, %s\n",
-                        row.get(0), row.get(1), row.get(2), row.get(3), row.get(4)
+                //System.out.println("잘나오는지");
+                System.out.printf("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s" +
+                                "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s" +
+                                "%s, %s, %s\n",
+                        row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5), row.get(6), row.get(7), row.get(8), row.get(9),
+                        row.get(10), row.get(11), row.get(12), row.get(13), row.get(14), row.get(15), row.get(16), row.get(17), row.get(18), row.get(19),
+                        row.get(20), row.get(21), row.get(22)
                 );
             }
         }
