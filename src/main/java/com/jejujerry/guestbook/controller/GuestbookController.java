@@ -21,7 +21,7 @@ public class GuestbookController {
 
     private final GuestbookService service; //final로 선언
 
-    //index jerry
+    //index jerry park
     @GetMapping("/")
     public String index() {
 
