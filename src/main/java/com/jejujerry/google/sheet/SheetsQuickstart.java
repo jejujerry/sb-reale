@@ -39,11 +39,9 @@ public class SheetsQuickstart {
      */
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
     //private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
-    //private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-    //private static final String CREDENTIALS_FILE_PATH = "/certification.json";
+
     private static final String CREDENTIALS_FILE_PATH = "/client_secret.json";
-    //private static final String CREDENTIALS_FILE_PATH = "/client_secret_2.json";
-    //private static final String CREDENTIALS_FILE_PATH = "/jejujerry-reale-30950144104d.json";
+
     /**
      * Creates an authorized Credential object.
      * @param HTTP_TRANSPORT The network HTTP Transport.

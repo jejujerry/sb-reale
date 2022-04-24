@@ -12,9 +12,9 @@ public interface SheetmapService {
 
     SheetmapDTO read(Long gno);
 
-    //void modify(SheetmapDTO dto);
+    void modify(SheetmapDTO dto);
 
-    //void remove(Long gno);
+    void remove(Long gno);
 
     default Sheetmap dtoToEntity(SheetmapDTO dto){
         Sheetmap entity = Sheetmap.builder()

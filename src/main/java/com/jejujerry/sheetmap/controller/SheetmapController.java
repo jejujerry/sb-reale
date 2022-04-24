@@ -44,7 +44,7 @@ public class SheetmapController {
 //    }
 //
 //    @PostMapping("/register")
-//    public String registerPost(GuestbookDTO dto, RedirectAttributes redirectAttributes){
+//    public String registerPost(SheetmapDTO dto, RedirectAttributes redirectAttributes){
 //
 //        log.info("dto..." + dto);
 //
@@ -53,7 +53,7 @@ public class SheetmapController {
 //
 //        redirectAttributes.addFlashAttribute("msg", gno);
 //
-//        return "redirect:/guestbook/list";
+//        return "redirect:/sheetmap/list";
 //    }
 //
 //    //@GetMapping("/read")
@@ -63,7 +63,7 @@ public class SheetmapController {
 //
 //        log.info("gno: " + gno);
 //
-//        GuestbookDTO dto = service.read(gno);
+//        SheetmapDTO dto = service.read(gno);
 //
 //        model.addAttribute("dto", dto);
 //
@@ -79,12 +79,12 @@ public class SheetmapController {
 //
 //        redirectAttributes.addFlashAttribute("msg", gno);
 //
-//        return "redirect:/guestbook/list";
+//        return "redirect:/sheetmap/list";
 //
 //    }
 //
 //    @PostMapping("/modify")
-//    public String modify(GuestbookDTO dto,
+//    public String modify(SheetmapDTO dto,
 //                         @ModelAttribute("requestDTO") PageRequestDTO requestDTO,
 //                         RedirectAttributes redirectAttributes){
 //
@@ -101,7 +101,7 @@ public class SheetmapController {
 //        redirectAttributes.addAttribute("gno",dto.getGno());
 //
 //
-//        return "redirect:/guestbook/read";
+//        return "redirect:/sheetmap/read";
 //
 //    }
 }
