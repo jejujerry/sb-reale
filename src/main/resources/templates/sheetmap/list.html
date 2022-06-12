@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<body>
-1234
-</body>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+    <th:block th:fragment="content">
+
+
+
+        <p> [[${reale1}]] </p>
+        <p> [[${reale2}]] </p>
+
+
+    </th:block>
+
+</th:block>
 </html>
