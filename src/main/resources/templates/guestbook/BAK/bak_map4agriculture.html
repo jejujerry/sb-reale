@@ -22,18 +22,7 @@
 
             <script th:inline="javascript">
 
-                // var positions = [
-                //     {   title: '동홍동 633 창고용지',
-                //         latlng: new daum.maps.LatLng(33.2605331,126.571985,15)
-                //     }
-                //     ,{  title: '<div style="padding:5px;"> 강정동 4070-2  평OOO 금액OOO 지목OOO <br> <a href="https://map.kakao.com/link/map ,33.2522565,126.4815181" style="color:blue" target="_blank">큰지도보기</a> </div>',
-                //         latlng: new daum.maps.LatLng(33.2522565,126.4815181,15)
-                //     }
-                //     // ,{  title: '강정동 4070-2 <div style="padding:5px;">평OOO 금액OOO 지목OOO <br> <a href="https://map.kakao.com/link/map/강정동4070-2 ,33.2522565,126.4815181" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/강정동4070-2,33.2522565,126.4815181" style="color:blue" target="_blank">길찾기</a></div>',
-                //     //     latlng: new daum.maps.LatLng(33.2522565,126.4815181,15)
-                //     // }
-                //
-                // ];
+
 
                 realeItems = [[${realeItems}]];
                 //console.log(realeItems);
@@ -76,34 +65,17 @@
                 var zoomControl = new kakao.maps.ZoomControl();
                 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-
-
-
-
                 console.log("다중마커 정보처리");
-                //20220528 주소를 이용하여 다중 마커와 다중 인포윈도우 표시하기(Kakao 지도 API)
-                //출처: https://bhpark.tistory.com/194 [Let's Study Animal Breeding:티스토리]
-                // var listData = [
-                //     ["제주특별자치도 서귀포시 강정동 4070-2","강정동 4070-2"],
-                //     ["제주특별자치도 서귀포시 동홍동 633","동홍동 633"]
-                // ];
-
 
                 var geocoder = new daum.maps.services.Geocoder();
 
-                //console.log("realeItems 여기서도 참조되나?");
-                //console.log(realeItems);
 
-                // foreach loop
-                // listData.forEach(function(addr, index) {
                 realeItems.forEach(function(addr, index) {
 
                     var latlng = getLocationlatlng(addr.addrName + " " + addr.addrName2);
                     console.log("lat : " + latlng[0]);
                     console.log("lat : " + latlng[1]);
                     console.log("addressname : " + latlng[2]);
-
-
 
                     console.log("addr.addName3 : " + addr.addrName3);
 
@@ -122,15 +94,15 @@
                     // query.setQuery('select A where  A = 5011010100');
                     // query.send(handleQueryResponse);
 
-
-
                     if(userlevel == "admin"){
-                        var iwContent = '<div style="padding:2px;font-size:0.7em">' + addr.addrName + " " + addr.addrName2 + ' ,' + addr.addrName3 + ''
+                        var iwContent = '<div style="padding:2px;font-size:0.8em">' + addr.addrName + " " + addr.addrName2 + ' ,' + addr.addrName3 + ''
                                 + '<br>' + addr.title
                                 + '<br>' + addr.py + '평 ' + addr.category + ' ' + addr.zone
                                 + '<br>' + addr.amt + '(' + addr.dang + ')'
                                 + '<br>' + addr.amt2 + '(' + addr.dang2 + ')'
                                 + '<br>' + '<a href="http://www.eum.go.kr/web/mp/mpMapDet.jsp?sId=selectaddr&pnu=' + addr.pnuCode + '" style="color:blue" target="_blank">' + 'eum' + '(' + addr.pnuCode.length + ')' + '</a>'
+                                + '&nbsp' + '<a href="' + addr.link1 + '" style="color:blue" target="_blank">' + 'dis' + '(' + addr.link1.length + ')' +  '</a>'
+                                + '<br>' + addr.ads
                                 + '<br>' + addr.explain
                                 + '<br>' + addr.evaluation
                                 + '<br>' + addr.regDate
@@ -144,14 +116,12 @@
                                 + '<br>' + addr.py + '평 ' + addr.category + ' ' + addr.zone
                                 + '<br>' + addr.amt + '(' + addr.dang + ')'
                                 + '<br>' + '<a href="http://www.eum.go.kr/web/mp/mpMapDet.jsp?sId=selectaddr&pnu=' + addr.pnuCode + '" style="color:blue" target="_blank">' + 'eum' + '(' + addr.pnuCode.length + ')' + '</a>'
+                                + '&nbsp' + '<a href="' + addr.link1 + '" style="color:blue" target="_blank">' + 'dis' + '(' + addr.link1.length + ')' +  '</a>'
+                                + '<br>' + addr.ads
                                 + '</div>',
                             iwPosition = new daum.maps.LatLng(Number(latlng[0]), Number(latlng[1])); //인포윈도우 표시 위치입니다
                         //iwPosition = new daum.maps.LatLng(positions[i].latlng); //인포윈도우 표시 위치입니다
                     }
-
-
-
-
 
 
                     // 인포윈도우를 생성합니다
@@ -236,17 +206,6 @@
                     currentTypeId = changeMaptype;
                 }
 
-                // 로드뷰 처리
-                //////////////////////////////////////////////////////////////////////////////
-                // var roadviewContainer = document.getElementById('map');//로드뷰를 표시할 div
-                // var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
-                // var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
-                // // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-                // var position = new kakao.maps.LatLng(33.450701, 126.570667);
-                // roadviewClient.getNearestPanoId(position, 50, function(panoId) {
-                //     roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
-                // });
-                //////////////////////////////////////////////////////////////////////////////
 
             </script>
         </th:block>

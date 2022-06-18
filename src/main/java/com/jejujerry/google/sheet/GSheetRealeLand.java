@@ -84,7 +84,141 @@ public class GSheetRealeLand {
      */
 
 
-    public String getPNUtemp(String addrName, String addrName2)  throws IOException, GeneralSecurityException {
+
+
+
+    //public static void main(String... args) throws IOException, GeneralSecurityException {
+    public List<RealeItem> getRealeItems(String sheetname) throws IOException, GeneralSecurityException {
+
+        //System.out.println("getRealeLand 호출된");
+
+
+        //List<RealeItem> realeItems = (List<RealeItem>) new RealeItem();
+
+        List<RealeItem> realeItems = new ArrayList<RealeItem>();
+
+
+
+        // Build a new authorized API client service.
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        //final String spreadsheetId = "1BSVeRrF_MBxWkVdr8Wm3wrhZCD53bfE0dMLRYtMEeAE";
+
+        //Sheets 식별자
+        final String spreadsheetId = "1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg";
+
+        //final String range = "googlesheetapi!A1:W";
+        //sheetname 매매_건축할토지 | 매매_농사할토지 | 매매_접수중토지 | 매매_상가주택 | 임대차_상가점포 | 임대차_123
+        final String range = sheetname +"!A1:W";
+
+        //System.out.println("getRealeLand 서비스생성전");
+
+
+        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+        //System.out.println("getRealeLand 리스펀스생성전");
+        ValueRange response = service.spreadsheets().values()
+                .get(spreadsheetId, range)
+                .execute();
+
+        //System.out.println("getRealeLand 밸류즈생성전");
+        List<List<Object>> values = response.getValues();
+        System.out.println("response.getValues() : " + response.getValues());
+
+
+        if (values == null || values.isEmpty()) {
+            System.out.println("No data found.");
+        } else {
+
+            int currentIndexOfItems = 0;
+            for (List row : values) {
+                System.out.println("currentIndexOfItems 매물순번 : " + currentIndexOfItems);
+                if (currentIndexOfItems != 0){
+                    //System.out.println("잘나오는지");
+
+                    RealeItem realeItem = new RealeItem();
+                    //System.out.println("realeItem.getRowIdx() : " + realeItem.getRowIdx() );
+                    realeItem.setRowIdx("" + currentIndexOfItems);
+                    System.out.println("realeItem.getRIdx() : " + realeItem.getRowIdx() );
+
+
+
+                    realeItem.setRegDate((String)row.get(0));
+                    realeItem.setAddrName((String) row.get(1));
+                    realeItem.setAddrName2((String) row.get(2));
+                    realeItem.setAddrName3((String) row.get(3));
+                    realeItem.setTitle((String) row.get(4));
+                    //System.out.println("row.get(4) : " + row.get(4));
+                    realeItem.setPnupre((String) row.get(5));
+                    //System.out.println("row.get(5) : " + row.get(5));
+
+                    String adstatus = "<div style=\'padding:0.2px;font-size:0.7em;color:lightcoral\'> ★preADs rIdx" + realeItem.getRowIdx() + "</div>";
+                    if (row.get(6).toString().equals("Y")) {adstatus = "<div style=\'padding:0.2px;font-size:0.7em;\'>doneADs rIdx" + realeItem.getRowIdx() + "</div>";}
+                    realeItem.setAds(adstatus);
+
+                    realeItem.setLink1((String) row.get(7));
+                    realeItem.setPy((String) row.get(8));
+                    realeItem.setAmt((String) row.get(9));
+                    realeItem.setAmt2((String) row.get(10));
+                    realeItem.setDang((String) row.get(11));
+                    realeItem.setDang2((String) row.get(12));
+                    realeItem.setCategory((String) row.get(13));
+                    realeItem.setZone((String) row.get(14));
+                    realeItem.setExplain((String) row.get(15));
+                    realeItem.setEvaluation((String) row.get(16));
+                    realeItem.setQuestion((String) row.get(17));
+                    realeItem.setOwner((String) row.get(18));
+
+//                    System.out.println("setAddrName : " + realeItem.getAddrName());
+//                    System.out.println("setTitle : " + realeItem.getTitle());
+//                    System.out.println("setAddrName2 : " + realeItem.getAddrName2());
+//                    System.out.println("setAddrName3 : " + realeItem.getAddrName3());
+//                    System.out.println("setEvaluation : " + realeItem.getEvaluation());
+
+                    // 주소로 pnuCode 가져오기
+                    //System.out.println("이게있어야해 : " + realeItem.getAddrName());
+                    String pnuCode = getPNUCODEsimple(realeItem.getPnupre(), realeItem.getAddrName2());
+                    realeItem.setPnuCode(pnuCode);
+                    System.out.println("Title : " + realeItem.getTitle() );
+                    System.out.println("PnuCode : " + realeItem.getPnuCode() );
+
+                    realeItem.setPageName(sheetname);
+
+
+                    realeItems.add(realeItem);
+
+                }
+                currentIndexOfItems++;
+
+            }
+        }
+
+        //System.out.println("getRealeLand 리턴");
+        return realeItems;
+    }
+
+    public String getPNUCODEsimple(String pnupre, String addrName2)  throws IOException, GeneralSecurityException {
+        String rvPNU = pnupre + "1";
+
+        String[] jibun = addrName2.split("-");
+
+        //System.out.println("jibun : " + jibun);
+        if(jibun.length > 0 && !jibun[0].toString().equals("")){
+            //System.out.println("jibun[0] : " + jibun[0]); //4자리 : 본번
+            rvPNU += padLeftZeros(jibun[0], 4);
+        }
+
+        if(jibun.length > 1 && !jibun[1].toString().equals("")) {
+            //System.out.println("jibun[1] : " + jibun[1]); //4자리 : 부번
+            rvPNU += padLeftZeros(jibun[1], 4);
+        }else{
+            rvPNU += "0000";
+        }
+
+        return rvPNU;
+    }
+    public String getPNUwithLOOP(String addrName, String addrName2)  throws IOException, GeneralSecurityException {
 
         String rvPNU = "NOTHING";
 
@@ -148,9 +282,7 @@ public class GSheetRealeLand {
         return rvPNU;
 
     }
-
-
-    public String getPNU(String addrName)  throws IOException, GeneralSecurityException {
+    public String getPNUwithQuery(String addrName)  throws IOException, GeneralSecurityException {
 
         //HERE!! 아래 링크 참조해서 query match lookup 잘 찾아보자
         //https://stackoverflow.com/questions/49161249/google-sheets-api-how-to-find-a-row-by-value-and-update-its-content
@@ -231,97 +363,6 @@ public class GSheetRealeLand {
         return "";
     }
 
-
-
-    //public static void main(String... args) throws IOException, GeneralSecurityException {
-    public List<RealeItem> getRealeLand(String sheetname) throws IOException, GeneralSecurityException {
-
-        //System.out.println("getRealeLand 호출된");
-
-
-        //List<RealeItem> realeItems = (List<RealeItem>) new RealeItem();
-
-        List<RealeItem> realeItems = new ArrayList<RealeItem>();
-
-
-
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        //final String spreadsheetId = "1BSVeRrF_MBxWkVdr8Wm3wrhZCD53bfE0dMLRYtMEeAE";
-
-        //Sheets 식별자
-        final String spreadsheetId = "1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg";
-
-        //final String range = "googlesheetapi!A1:W";
-        final String range = sheetname +"!A1:W";
-
-        //System.out.println("getRealeLand 서비스생성전");
-
-
-        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-        //System.out.println("getRealeLand 리스펀스생성전");
-        ValueRange response = service.spreadsheets().values()
-                .get(spreadsheetId, range)
-                .execute();
-
-        //System.out.println("getRealeLand 밸류즈생성전");
-        List<List<Object>> values = response.getValues();
-
-
-
-        if (values == null || values.isEmpty()) {
-            System.out.println("No data found.");
-        } else {
-
-            int currentIndexOfItems = 0;
-            for (List row : values) {
-                System.out.println("currentIndexOfItems 매물순번 : " + currentIndexOfItems);
-                if (currentIndexOfItems != 0){
-                    //System.out.println("잘나오는지");
-
-                    RealeItem realeItem = new RealeItem();
-                    realeItem.setRegDate((String)row.get(0));
-                    realeItem.setAddrName((String) row.get(1));
-                    realeItem.setAddrName2((String) row.get(2));
-                    realeItem.setAddrName3((String) row.get(3));
-                    realeItem.setTitle((String) row.get(4));
-                    realeItem.setPy((String) row.get(5));
-                    realeItem.setAmt((String) row.get(6));
-                    realeItem.setAmt2((String) row.get(7));
-                    realeItem.setDang((String) row.get(8));
-                    realeItem.setDang2((String) row.get(9));
-                    realeItem.setCategory((String) row.get(10));
-                    realeItem.setZone((String) row.get(11));
-                    realeItem.setExplain((String) row.get(12));
-                    realeItem.setEvaluation((String) row.get(13));
-
-//                    System.out.println("setAddrName : " + realeItem.getAddrName());
-//                    System.out.println("setTitle : " + realeItem.getTitle());
-//                    System.out.println("setAddrName2 : " + realeItem.getAddrName2());
-//                    System.out.println("setAddrName3 : " + realeItem.getAddrName3());
-//                    System.out.println("setEvaluation : " + realeItem.getEvaluation());
-
-                    // 주소로 pnuCode 가져오기
-                    //System.out.println("이게있어야해 : " + realeItem.getAddrName());
-                    String pnuCode = getPNUtemp(realeItem.getAddrName(), realeItem.getAddrName2());
-                    realeItem.setPnuCode(pnuCode);
-                    System.out.println("PnuCode : " + realeItem.getPnuCode() );
-
-
-                    realeItems.add(realeItem);
-
-                }
-                currentIndexOfItems++;
-
-            }
-        }
-
-        //System.out.println("getRealeLand 리턴");
-        return realeItems;
-    }
 
     public String padLeftZeros(String inputString, int length) {
         if (inputString.length() >= length) {
