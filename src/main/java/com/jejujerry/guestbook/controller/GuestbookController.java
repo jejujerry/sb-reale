@@ -179,7 +179,7 @@ public class GuestbookController {
     @GetMapping("/map4renthouse")
     public String map4renthouse(Model model) throws GeneralSecurityException, IOException {
         log.info("controller map4renthouse");
-        List<RealeItem> realeItems = new GSheetRealeLand().getRealeItems("임대차_주거용");
+        List<RealeItem> realeItems = new GSheetRealeLand().getRealeItems("전세_주거");
         model.addAttribute("realeItems", realeItems);
         return "guestbook/map4base";
     }
@@ -187,11 +187,35 @@ public class GuestbookController {
     @GetMapping("/map4renthouseend")
     public String map4renthouseend(Model model) throws GeneralSecurityException, IOException {
         log.info("controller map4renthouseend");
-        List<RealeItem> realeItems = new GSheetRealeLand().getRealeItems("완료임대차_주거용");
+        List<RealeItem> realeItems = new GSheetRealeLand().getRealeItems("완료전세_주거");
         model.addAttribute("realeItems", realeItems);
         return "guestbook/map4base";
     }
 
+    @GetMapping("/map4renthousemy")
+    public String map4renthousemy(Model model) throws GeneralSecurityException, IOException {
+        log.info("controller map4renthousemy");
+        List<RealeItem> realeItems = new GSheetRealeLand().getRealeItems("년월세_주거");
+        model.addAttribute("realeItems", realeItems);
+        return "guestbook/map4base";
+    }
+
+    @GetMapping("/map4renthousemyend")
+    public String map4renthousemyend(Model model) throws GeneralSecurityException, IOException {
+        log.info("controller map4renthousemyend");
+        List<RealeItem> realeItems = new GSheetRealeLand().getRealeItems("완료년월세_주거");
+        model.addAttribute("realeItems", realeItems);
+        return "guestbook/map4base";
+    }
+
+
+    @GetMapping("/infopopup")
+    public String infopopup(Model model) throws GeneralSecurityException, IOException {
+        log.info("controller map4receiving");
+        List<RealeItem> realeItems = new GSheetRealeLand().getRealeItems("매매_접수중토지");
+        model.addAttribute("realeItems", realeItems);
+        return "guestbook/infopopup";
+    }
 
 
 //    @GetMapping("/map")

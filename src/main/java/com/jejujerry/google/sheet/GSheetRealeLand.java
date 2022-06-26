@@ -139,7 +139,7 @@ public class GSheetRealeLand {
 
                     RealeItem realeItem = new RealeItem();
                     //System.out.println("realeItem.getRowIdx() : " + realeItem.getRowIdx() );
-                    realeItem.setRowIdx("" + currentIndexOfItems);
+                    realeItem.setRowIdx("" + (currentIndexOfItems + 1));
                     System.out.println("realeItem.getRIdx() : " + realeItem.getRowIdx() );
 
 
@@ -184,7 +184,6 @@ public class GSheetRealeLand {
                     System.out.println("PnuCode : " + realeItem.getPnuCode() );
 
                     realeItem.setPageName(sheetname);
-
 
                     realeItems.add(realeItem);
 

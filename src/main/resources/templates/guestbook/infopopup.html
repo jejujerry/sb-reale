@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정보 팝업</title>
+
+</head>
+<body>
+
+정보 팝업
+<div th:text="${#httpServletRequest.getParameter('idx')}"
+     th:unless="${#httpServletRequest.getParameter('idx') == null}">
+    Show some error msg
+</div>
+
+<script th:inline="javascript">
+    var itemIdx = [[${#httpServletRequest.getParameter('idx')}]];
+    console.log("itemIdx : " + itemIdx);
+</script>
+
+<!--<div id="infodiv" style="padding:0.2px;font-size:0.8em">-->
+<!--    <div id="infodiv1" style="padding:0.2px;font-size:0.7em"></div>-->
+<!--    <div id="infodiv2" style="padding:0.2px;font-size:0.6em"></div>-->
+<!--</div>-->
+
+<div id="infodiv" style="padding:0.2px;font-size:0.8em"></div>
+
+<script>
+    //var idxValue = request.getParameter('idx');
+    //console.log("idxValue : " + idxValue);
+
+    //아래 -2 를 한 이유
+    //map4base의   localStorage.setItem("realeItem" + rownum , JSON.stringify(realeItems[rownum]));
+    //소스에서 rownum이 1부터 시작했고 실제 sheet의 1row에는 columnName이 있기때문일듯
+    let realeItem = JSON.parse(localStorage.getItem( "cast" + (itemIdx -2) ));
+    //출처: https://kgu0724.tistory.com/229 [병아리 개발자의 이야기:티스토리]
+    console.log(typeof realeItem);
+    console.log(realeItem)
+
+    console.log(realeItem.addrName);
+
+    ViewInfoDiv();
+
+    function ViewInfoDiv() {
+        const target = document.getElementById('infodiv'); // 요소의 id 값이 target이라 가정
+        const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+        const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
+
+
+        var infodiv1 = document.createElement('infodiv1');
+        infodiv1.className = "baseinfo";
+        //infodiv1.className = "absolutePosition backgroundColor";
+        //infodiv1.style.left = clientRect.left * 2;
+        //infodiv1.style.top = clientRect.top;
+        infodiv1.innerHTML = realeItem.addrName + ", " + realeItem.addrName2 + ', ' + realeItem.addrName3;
+        infodiv1.innerHTML += realeItem.py + '평 ' + realeItem.category + ' ' + realeItem.zone;
+        infodiv1.innerHTML += realeItem.amt + '(' + realeItem.dang + ')';
+        infodiv1.innerHTML += realeItem.explain;
+        infodiv1.innerHTML += realeItem.evaluation;
+        infodiv1.innerHTML += realeItem.regDate;
+
+
+        var infodiv2 = document.createElement('infodiv2');
+        infodiv2.className = "absolutePosition backgroundColor";
+        infodiv2.style.left = clientRect.left * 2;
+        infodiv2.style.top = clientRect.top;
+        infodiv2.innerHTML = "innerHTML에 넣은것 중 해당 div것 지우기 <Button onclick='RemoveDiv(this)'>지우기</Button>";
+
+        target.append(infodiv1);
+        target.append(infodiv2);
+    }
+
+    function RemoveDiv(obj) {
+        console.log(obj);
+        console.log(obj.parentNode);
+        var parent = obj.parentNode;
+        parent.remove();
+    }
+    //[출처] Javascript Div 위에 Div 생성, 삭제|작성자 피실
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

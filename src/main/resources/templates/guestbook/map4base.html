@@ -43,8 +43,11 @@
 
         </script>
 
-        <div id="pagename" style="z-index:6;position:absolute;"></div>
 
+
+        <!--pagename을 sheetlink로 통합시켰음-->
+        <!--<div id="pagename" style="z-index:6;position:absolute;"></div>-->
+        <div id="sheetlink" style="z-index:6;position:absolute;"></div>
 
         <div id="funbtn" style="z-index:5;position:absolute;">
 
@@ -115,10 +118,57 @@
             realeItems.forEach(function(addr, index) {
 
                 //물건ITEM이 여러개라도 선택된 MENU 명을 딱 한번만 표기함
-                if(rownum == 1){
-                    $("#pagename").text(addr.pageName);
-                    console.log("pagename 표기 : " + addr.pageName);
+                if (rownum == 1) {
+
+                    var sheetlinkurl = "";
+                    if (addr.pageName == "매매_접수중토지") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1714268142" style="color:black;text-decoration-line:none" target="_blank">매매_접수중토지</a>'
+                    } else if (addr.pageName == "매매_건축할토지") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=961118676" style="color:black;text-decoration-line:none" target="_blank">매매_건축할토지</a>'
+                    } else if (addr.pageName == "매매_농사할토지") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1779157279" style="color:black;text-decoration-line:none" target="_blank">매매_농사할토지</a>'
+                    } else if (addr.pageName == "매매_맹지") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1876251541" style="color:black;text-decoration-line:none" target="_blank">매매_맹지</a>'
+                    } else if (addr.pageName == "매매_주택") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140087293" style="color:black;text-decoration-line:none" target="_blank">매매_주택</a>'
+                    } else if (addr.pageName == "매매_공동주택") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=735473905" style="color:black;text-decoration-line:none" target="_blank">매매_공동주택</a>'
+                    } else if (addr.pageName == "매매_상가주택") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256417931" style="color:black;text-decoration-line:none" target="_blank">매매_상가주택</a>'
+                    } else if (addr.pageName == "임대차_상가점포") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=110267819" style="color:black;text-decoration-line:none" target="_blank">임대차_상가점포</a>'
+                    } else if (addr.pageName == "전세_주거") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256385118" style="color:black;text-decoration-line:none" target="_blank">전세_주거</a>'
+                    } else if (addr.pageName == "년월세_주거") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=73370049" style="color:black;text-decoration-line:none" target="_blank">년월세_주거</a>'
+                    } else if (addr.pageName == "완료매매_건축할토지") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1898269064" style="color:black;text-decoration-line:none" target="_blank">완료매매_건축할토지</a>'
+                    } else if (addr.pageName == "완료매매_농사할토지") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1975904288" style="color:black;text-decoration-line:none" target="_blank">완료매매_농사할토지</a>'
+                    } else if (addr.pageName == "완료매매_맹지") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140237127" style="color:black;text-decoration-line:none" target="_blank">완료매매_맹지</a>'
+                    } else if (addr.pageName == "완료매매_주택") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1478680808" style="color:black;text-decoration-line:none" target="_blank">완료매매_주택</a>'
+                    } else if (addr.pageName == "완료매매_공동주택") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=894709370" style="color:black;text-decoration-line:none" target="_blank">완료매매_공동주택</a>'
+                    } else if (addr.pageName == "완료매매_상가주택") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1441645393" style="color:black;text-decoration-line:none" target="_blank">완료매매_상가주택</a>'
+                    } else if (addr.pageName == "완료임대차_상가점포") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1924117688" style="color:black;text-decoration-line:none" target="_blank">완료임대차_상가점포</a>'
+                    } else if (addr.pageName == "완료전세_주거") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=385891742" style="color:black;text-decoration-line:none" target="_blank">완료전세_주거</a>'
+                    } else if (addr.pageName == "완료년월세_주거") {
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1052034159" style="color:black;text-decoration-line:none" target="_blank">완료년월세_주거</a>'
+                    }
+
+                    //$("#pagename").text(addr.pageName);
+                    //console.log("pagename 표기 : " + addr.pageName);
+
+                    $("#sheetlink").html(sheetlinkurl);
+
                 }
+
+
 
                 var latlng = getLocationlatlng(addr.addrName + " " + addr.addrName2);
                 console.log("lat : " + latlng[0]);
@@ -180,23 +230,55 @@
                         iwPosition = new daum.maps.LatLng(Number(latlng[0]), Number(latlng[1])); //인포윈도우 표시 위치입니다
                     //iwPosition = new daum.maps.LatLng(positions[i].latlng); //인포윈도우 표시 위치입니다
                 }else{
-
+                    var addrfullname = addr.addrName.replace(" ","").trim() + "" + addr.addrName2;
+                    console.log("addrfullname : " + addrfullname);
                     //var iwContent = '<div style="padding:2px;font-size:0.8em">' + addr.addrName + " " + addr.addrName2 + ' ,' + addr.addrName3 + ''
                     var iwContent = '<div style="padding:0.2px;font-size:0.8em">'
                             + addr.title
-                            + '<br>' + addr.zone + ' ' + addr.category + ' ' +  addr.py + '평'
-                            + '<br>' + addr.amt + ' (' + addr.dang + ')'
-                            + '<br>' + '<div style="padding:0.2px;font-size:0.7em">' + addr.explain + '</div>'
+                            + '<br>' + addr.py + '평 ' +  addr.amt + '￦' + addr.dang
+                            + '<br>' + '<div style="padding:0.0px;font-size:0.7em">' + addr.category + ' ' + addr.zone + '</div>'
+                            + '<br>' + '<div style="padding:0.0px;font-size:0.7em">' + addr.explain + '</div>'
+
                             //+ '' + addr.ads + ' idx' + addr.rowIdx   ads 에 광고등록했는지와 Idx를 한번에 넣어놓았음 GSheetRealeLand.java에 코딩
                             + '' + addr.ads
-                            + '' + '<a href="http://www.eum.go.kr/web/mp/mpMapDet.jsp?sId=selectaddr&pnu=' + addr.pnuCode + '" style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'eum' + '(' + addr.pnuCode.length + ')' + '</a>'
+
+                            + '&nbsp' + '<a href=http://www.eum.go.kr/web/mp/mpMapDet.jsp?sId=selectaddr&pnu=' + addr.pnuCode + ' style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'eum' + '(' + addr.pnuCode.length + ')' + '</a>'
                             + '&nbsp' + '<a href="' + addr.link1 + '" style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'dis' + '(' + addr.link1.length + ')' +  '</a>'
+                            + '&nbsp' + '<a href=https://map.naver.com/v5/search/' + addrfullname + ' style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'nmap' + '</a>'
+                            + '&nbsp' + '<a href=https://map.kakao.com/?q=' + addrfullname + ' style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'kmap' + '</a>'
+                            + '&nbsp' + '<a href=https://schoolzone.emac.kr/gis/gis.do?schzonePage=1&searchText=' + addrfullname + ' style="padding:0.2px;font-size:0.5em;color:blue" target="_blank">' + '학' + '</a>'
+
+                            + '&nbsp' + '<a href="/guestbook/infopopup?idx=' + addr.rowIdx + '" style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + '팝' + '</a>'
+
+                            + '<br>' + '<div style="padding:0.0px;font-size:0.7em">' + addr.owner.substr(0, 1) + "" + addr.owner.substr(addr.owner.length-1, 1) + '</div>'
+
+
+
+
                             + '</div>',
+
+
+
+
                         iwPosition = new daum.maps.LatLng(Number(latlng[0]), Number(latlng[1])); //인포윈도우 표시 위치입니다
+
+
+                        // var cast = {
+                        //     "idx" : "idx" + rownum,
+                        //     "addr" : addr.addrName + " " + addr.addrName2 + ' ,' + addr.addrName3 + '',
+                        //     "생년월일" : "2002",
+                        //     "취미" : "농구",
+                        //     "폰번호" : "0101100203",
+                        //     "기타" : "~~"
+                        // };
+
+                        // Json Object를 저장하기
+                        //localStorage.setItem("cast" + rownum , JSON.stringify(cast));
+                        localStorage.setItem("realeItem" + rownum , JSON.stringify(realeItems[rownum]));
+                        //출처: https://kgu0724.tistory.com/229 [병아리 개발자의 이야기:티스토리]
+
                     //iwPosition = new daum.maps.LatLng(positions[i].latlng); //인포윈도우 표시 위치입니다
                 }
-
-
 
 
 
@@ -214,6 +296,8 @@
 
                 rownum++;
             });
+
+            setCenter();
 
             //주소검색 API    출처: https://mine-it-record.tistory.com/328 [나만의 기록들:티스토리]
             //https://developers.kakao.com/docs/latest/ko/local/dev-guide#address-coord
@@ -288,7 +372,13 @@
 
 
 
+            function setCenter() {
+                // 이동할 위도 경도 위치를 생성합니다
+                var moveLatLon = new kakao.maps.LatLng(33.245680186918, 126.56193465796456);
 
+                // 지도 중심을 이동 시킵니다
+                map.setCenter(moveLatLon);
+            }
 
 
             // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
