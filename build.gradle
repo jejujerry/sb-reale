@@ -108,15 +108,23 @@ repositories {
     mavenCentral()
 }
 
-//요거들어가는순간 login창 생긴다.
+
+bootJar{
+    archivesBaseName = 'map4base'
+    archiveFileName = 'map4base.jar'
+    archiveVersion = "0.0.0"
+}
+
+
+
+//dependencies 2개 요거들어가는순간 login창 생긴다. 이제 왜 안생기지?
 //https://www.youtube.com/watch?v=7luWlXkweEE
 //dependencies {
 //    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 //}
-
-dependencies {
-    //implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-}
+//dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+//}
 
 dependencies {
 

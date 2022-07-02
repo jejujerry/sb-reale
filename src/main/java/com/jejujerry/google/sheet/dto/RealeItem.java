@@ -19,17 +19,18 @@ public class RealeItem {
     private String pnupre;//PNUPRE5
     private String ads; //광고6
     private String link1; //DISCO7
-    private String py;//사이즈(평)8
-    private String amt;//금액1(백만)9
-    private String amt2;//금액2(백만)10
-    private String dang;//당1(백만)11
-    private String dang2;//당2(백만)12
-    private String category;//지목13
-    private String zone;//지역14
-    private String explain;//설명15
-    private String evaluation;//나의평가16
-    private String question;//나의질문17
-    private String owner;//소유자18
+    private String smeter;//사이즈(square meter)8
+    private String py;//사이즈(평)9
+    private String amt;//금액1(백만)10
+    private String amt2;//금액2(백만)11
+    private String dang;//당1(백만)12
+    private String dang2;//당2(백만)13
+    private String category;//지목14
+    private String zone;//지역15
+    private String explain;//설명16
+    private String evaluation;//나의평가17
+    private String question;//나의질문18
+    private String owner;//소유자19
 
     //처리시 만들어담을 변수
     private String rowIdx;

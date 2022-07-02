@@ -153,22 +153,23 @@ public class GSheetRealeLand {
                     realeItem.setPnupre((String) row.get(5));
                     //System.out.println("row.get(5) : " + row.get(5));
 
-                    String adstatus = "<div style=\'padding:0.2px;font-size:0.7em;color:lightcoral\'> ★preADs rIdx" + realeItem.getRowIdx() + "</div>";
-                    if (row.get(6).toString().equals("Y")) {adstatus = "<div style=\'padding:0.2px;font-size:0.7em;\'>doneADs rIdx" + realeItem.getRowIdx() + "</div>";}
+                    String adstatus = "<div style=\'padding:0.0px;font-size:0.5em;float:left;with:50%;color:#FF00FF\'> ★preADs rIdx" + realeItem.getRowIdx() + "</div>";
+                    if (row.get(6).toString().equals("Y")) {adstatus = "<div style=\'padding:0.2px;font-size:0.5em;float:left;with:50%;\'>doneADs rIdx" + realeItem.getRowIdx() + "</div>";}
                     realeItem.setAds(adstatus);
 
                     realeItem.setLink1((String) row.get(7));
-                    realeItem.setPy((String) row.get(8));
-                    realeItem.setAmt((String) row.get(9));
-                    realeItem.setAmt2((String) row.get(10));
-                    realeItem.setDang((String) row.get(11));
-                    realeItem.setDang2((String) row.get(12));
-                    realeItem.setCategory((String) row.get(13));
-                    realeItem.setZone((String) row.get(14));
-                    realeItem.setExplain((String) row.get(15));
-                    realeItem.setEvaluation((String) row.get(16));
-                    realeItem.setQuestion((String) row.get(17));
-                    realeItem.setOwner((String) row.get(18));
+                    realeItem.setSmeter((String) row.get(8));
+                    realeItem.setPy((String) row.get(9));
+                    realeItem.setAmt((String) row.get(10));
+                    realeItem.setAmt2((String) row.get(11));
+                    realeItem.setDang((String) row.get(12));
+                    realeItem.setDang2((String) row.get(13));
+                    realeItem.setCategory((String) row.get(14));
+                    realeItem.setZone((String) row.get(15));
+                    realeItem.setExplain((String) row.get(16));
+                    realeItem.setEvaluation((String) row.get(17));
+                    realeItem.setQuestion((String) row.get(18));
+                    realeItem.setOwner((String) row.get(19));
 
 //                    System.out.println("setAddrName : " + realeItem.getAddrName());
 //                    System.out.println("setTitle : " + realeItem.getTitle());

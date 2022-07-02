@@ -15,7 +15,11 @@
 <body>
 <script> var realeItems; </script>
 <!--    <script> var userlevel = "admin"; </script>-->
-<script> var userlevel = "user"; </script>
+<script> var userlevel = "user";
+var sheetlinkurl = "";
+var sheetlinkhttp = "";
+
+</script>
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
@@ -120,45 +124,64 @@
                 //물건ITEM이 여러개라도 선택된 MENU 명을 딱 한번만 표기함
                 if (rownum == 1) {
 
-                    var sheetlinkurl = "";
+
                     if (addr.pageName == "매매_접수중토지") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1714268142" style="color:black;text-decoration-line:none" target="_blank">매매_접수중토지</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1714268142" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">매매_접수중토지</a>'
+                        sheetlinkhttp = "https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1714268142";
                     } else if (addr.pageName == "매매_건축할토지") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=961118676" style="color:black;text-decoration-line:none" target="_blank">매매_건축할토지</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=961118676" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">매매_건축할토지</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=961118676"
                     } else if (addr.pageName == "매매_농사할토지") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1779157279" style="color:black;text-decoration-line:none" target="_blank">매매_농사할토지</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1779157279" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">매매_농사할토지</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1779157279";
                     } else if (addr.pageName == "매매_맹지") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1876251541" style="color:black;text-decoration-line:none" target="_blank">매매_맹지</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1876251541" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">매매_맹지</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1876251541";
                     } else if (addr.pageName == "매매_주택") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140087293" style="color:black;text-decoration-line:none" target="_blank">매매_주택</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140087293" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">매매_주택</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140087293";
                     } else if (addr.pageName == "매매_공동주택") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=735473905" style="color:black;text-decoration-line:none" target="_blank">매매_공동주택</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=735473905" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">매매_공동주택</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=735473905";
                     } else if (addr.pageName == "매매_상가주택") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256417931" style="color:black;text-decoration-line:none" target="_blank">매매_상가주택</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256417931" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">매매_상가주택</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256417931";
                     } else if (addr.pageName == "임대차_상가점포") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=110267819" style="color:black;text-decoration-line:none" target="_blank">임대차_상가점포</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=110267819" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">임대차_상가점포</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=110267819";
                     } else if (addr.pageName == "전세_주거") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256385118" style="color:black;text-decoration-line:none" target="_blank">전세_주거</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256385118" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">전세_주거</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=256385118";
                     } else if (addr.pageName == "년월세_주거") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=73370049" style="color:black;text-decoration-line:none" target="_blank">년월세_주거</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=73370049" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">년월세_주거</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=73370049";
                     } else if (addr.pageName == "완료매매_건축할토지") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1898269064" style="color:black;text-decoration-line:none" target="_blank">완료매매_건축할토지</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1898269064" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료매매_건축할토지</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1898269064";
                     } else if (addr.pageName == "완료매매_농사할토지") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1975904288" style="color:black;text-decoration-line:none" target="_blank">완료매매_농사할토지</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1975904288" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료매매_농사할토지</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1975904288";
                     } else if (addr.pageName == "완료매매_맹지") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140237127" style="color:black;text-decoration-line:none" target="_blank">완료매매_맹지</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140237127" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료매매_맹지</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1140237127";
                     } else if (addr.pageName == "완료매매_주택") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1478680808" style="color:black;text-decoration-line:none" target="_blank">완료매매_주택</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1478680808" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료매매_주택</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1478680808";
                     } else if (addr.pageName == "완료매매_공동주택") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=894709370" style="color:black;text-decoration-line:none" target="_blank">완료매매_공동주택</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=894709370" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료매매_공동주택</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=894709370";
                     } else if (addr.pageName == "완료매매_상가주택") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1441645393" style="color:black;text-decoration-line:none" target="_blank">완료매매_상가주택</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1441645393" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료매매_상가주택</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1441645393";
                     } else if (addr.pageName == "완료임대차_상가점포") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1924117688" style="color:black;text-decoration-line:none" target="_blank">완료임대차_상가점포</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1924117688" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료임대차_상가점포</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1924117688";
                     } else if (addr.pageName == "완료전세_주거") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=385891742" style="color:black;text-decoration-line:none" target="_blank">완료전세_주거</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=385891742" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료전세_주거</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=385891742";
                     } else if (addr.pageName == "완료년월세_주거") {
-                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1052034159" style="color:black;text-decoration-line:none" target="_blank">완료년월세_주거</a>'
+                        sheetlinkurl = '<a href="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1052034159" style="color:white;font-size:1.5em;text-decoration-line:none" target="_blank">완료년월세_주거</a>'
+                        sheetlinkhttp ="https://docs.google.com/spreadsheets/d/1ZnpywI0OLrYBWuiGnvalp3oFoNBVc81XOKQMVtDBvkg/edit#gid=1052034159";
                     }
 
                     //$("#pagename").text(addr.pageName);
@@ -209,8 +232,104 @@
                 kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(overinfowindow));
 
 
+                var color_amt = "black";
+                if (parseFloat(addr.amt.replace(',','')) <= parseFloat(200.00)){        //빨
+                    color_amt = "#FF0000";
+                }else if (parseFloat(addr.amt.replace(',','')) <= parseFloat(350.00)){  //주
+                    color_amt = "#FF7F50";
+                }else if (parseFloat(addr.amt.replace(',','')) <= parseFloat(500.00)){  //노
+                    color_amt = "#FFC300";
+                }else if (parseFloat(addr.amt.replace(',','')) <= parseFloat(700.00)){  //초
+                    color_amt = "#008000";
+                }else if (parseFloat(addr.amt.replace(',','')) <= parseFloat(1000.00)){  //파
+                    color_amt = "#0070FF";
+                }else if (parseFloat(addr.amt.replace(',','')) <= parseFloat(2000.00)){  //남
+                    color_amt = "#0008FF";
+                }else if (parseFloat(addr.amt.replace(',','')) <= parseFloat(3000.00)){  //보
+                    color_amt = "#AC42C1";
+                }else if (parseFloat(addr.amt.replace(',','')) <= parseFloat(9000.00)) {  //보
+                    color_dang = "#FF00FF";
+                }
+
+                var color_dang = "black";
+                if (parseFloat(addr.dang.replace(',','')) <= parseFloat(0.40)) { //빨
+                    color_dang = "#FF0000";
+                }else if (parseFloat(addr.dang.replace(',','')) <= parseFloat(0.60)) { //주
+                    color_dang = "#FF7F50";
+                }else if (parseFloat(addr.dang.replace(',','')) <= parseFloat(1.20)) { //노
+                    color_dang = "#FFC300";
+                }else if (parseFloat(addr.dang.replace(',','')) <= parseFloat(1.80)) { //초
+                    color_dang = "#008000";
+                }else if (parseFloat(addr.dang.replace(',','')) <= parseFloat(2.50)) { //파
+                    color_dang = "#0070FF";
+                }else if (parseFloat(addr.dang.replace(',','')) <= parseFloat(3.20)) { //남
+                    color_dang = "#0008FF";
+                }else if (parseFloat(addr.dang.replace(',','')) <= parseFloat(5.00)) { //보
+                    color_dang = "#AC42C1";
+                }else if (parseFloat(addr.dang.replace(',','')) <= parseFloat(90.00)) { //보
+                    color_dang = "#FF00FF";
+                }
 
 
+                // if (parseFloat(addr.dang) > parseFloat(3.00)) { //보
+                //     color_dang = "#800080";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(2.50)) { //남
+                //     color_dang = "#000080";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(2.00)) { //파
+                //     color_dang = "#0000FF";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(1.50)) { //초
+                //     color_dang = "#008000";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(1.00)) { //노
+                //     color_dang = "#FFC300";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(0.50)) { //주
+                //     color_dang = "#FF7F50";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(0.01)) { //빨
+                //     color_dang = "#FF0000";
+                // }
+
+
+                // if (parseFloat(addr.dang) > parseFloat(3.00)) { //보
+                //     color_dang = "blueviolet";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(2.50)) { //남
+                //     color_dang = "darkblue";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(2.00)) { //파
+                //     color_dang = "blue";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(1.50)) { //초
+                //     color_dang = "green";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(1.00)) { //노
+                //     color_dang = "orange";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(0.50)) { //주
+                //     color_dang = "orangered";
+                // }else if (parseFloat(addr.dang.replace(',','')) > parseFloat(0.01)) { //빨
+                //     color_dang = "red";
+                // }
+
+
+
+
+
+
+
+                // if (addr.amt > 2000.00) { //보
+                //     color_amt = "blueviolet";
+                // }else if (addr.amt > 1000.00) { //남
+                //     color_amt = "darkblue";
+                // }else if (addr.amt > 700.00) { //파
+                //     color_amt = "blue";
+                // }else if (addr.amt > 500.00) { //초
+                //     color_amt = "green";
+                // }else if (addr.amt > 350.00) { //노
+                //     color_amt = "orange";
+                // }else if (addr.amt > 200.00) { //주
+                //     color_amt = "orangered";
+                // }else if (addr.amt > 1.00) {                        //빨
+                //     color_amt = "darkred";
+                // }
+
+                var dang2_yn = "";
+                if (addr.dang2 > 0.01) { //당2가 있으면 , 표기
+                    dang2_yn = ",";
+                }
 
 
 
@@ -233,29 +352,33 @@
                     var addrfullname = addr.addrName.replace(" ","").trim() + "" + addr.addrName2;
                     console.log("addrfullname : " + addrfullname);
                     //var iwContent = '<div style="padding:2px;font-size:0.8em">' + addr.addrName + " " + addr.addrName2 + ' ,' + addr.addrName3 + ''
-                    var iwContent = '<div style="padding:0.2px;font-size:0.8em">'
-                            + addr.title
-                            + '<br>' + addr.py + '평 ' +  addr.amt + '￦' + addr.dang
-                            + '<br>' + '<div style="padding:0.0px;font-size:0.7em">' + addr.category + ' ' + addr.zone + '</div>'
+
+                    var iwContent = ''
+                            //타이틀 지역 지목 평 제곱미터 총가격 당가격
+                            + '<div style="padding:0.2px;font-size:0.8em">'
+                            + addr.title + '<br>' + addr.zone + ' ' + addr.category + ' ' + addr.py + '평' + '(' + addr.smeter + '㎡ )' + '</div>'
+                            + '<div style="padding:0.0px;font-size:0.7em;float:left;with:50%;color:'+ color_amt +'">' +  addr.amt + '</div>' + '<div style="padding:0.0px;font-size:0.7em;float:left;with:50%;color:'+ color_dang +'">' + '￦' + addr.dang + ' ' + dang2_yn + '</div>'
+
+                            //설명부분
                             + '<br>' + '<div style="padding:0.0px;font-size:0.7em">' + addr.explain + '</div>'
 
-                            //+ '' + addr.ads + ' idx' + addr.rowIdx   ads 에 광고등록했는지와 Idx를 한번에 넣어놓았음 GSheetRealeLand.java에 코딩
-                            + '' + addr.ads
 
+                            //토지이음링크, 디스코링크, 네이버맵링크, 다음맵링크, 학구도링크
                             + '&nbsp' + '<a href=http://www.eum.go.kr/web/mp/mpMapDet.jsp?sId=selectaddr&pnu=' + addr.pnuCode + ' style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'eum' + '(' + addr.pnuCode.length + ')' + '</a>'
                             + '&nbsp' + '<a href="' + addr.link1 + '" style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'dis' + '(' + addr.link1.length + ')' +  '</a>'
                             + '&nbsp' + '<a href=https://map.naver.com/v5/search/' + addrfullname + ' style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'nmap' + '</a>'
                             + '&nbsp' + '<a href=https://map.kakao.com/?q=' + addrfullname + ' style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + 'kmap' + '</a>'
                             + '&nbsp' + '<a href=https://schoolzone.emac.kr/gis/gis.do?schzonePage=1&searchText=' + addrfullname + ' style="padding:0.2px;font-size:0.5em;color:blue" target="_blank">' + '학' + '</a>'
 
-                            + '&nbsp' + '<a href="/guestbook/infopopup?idx=' + addr.rowIdx + '" style="padding:0.2px;font-size:0.7em;color:blue" target="_blank">' + '팝' + '</a>'
-
-                            + '<br>' + '<div style="padding:0.0px;font-size:0.7em">' + addr.owner.substr(0, 1) + "" + addr.owner.substr(addr.owner.length-1, 1) + '</div>'
 
 
-
-
-                            + '</div>',
+                            //+ '' + addr.ads + ' idx' + addr.rowIdx   ads 에 광고등록했는지와 Idx를 한번에 넣어놓았음 GSheetRealeLand.java에 코딩
+                            //오우너20%, 광고와인덱스번호50%, 해당시트의셀로가기15%, 광고문구및상세정보팝업15%
+                            + '<br>' + '<div style="padding:0.0px;float:left;with:20%;font-size:0.5em">' + addr.owner.substr(0, 1) + "" + addr.owner.substr(addr.owner.length-1, 1) + '</div>'
+                            +  addr.ads
+                            + '&nbsp' + '<a href=' + sheetlinkhttp + '&range=A' + addr.rowIdx + ' style="padding:0.2px;font-size:0.7em;float:left;with:15%;color:blue" target="_blank">' + '_gosh ' + '</a>'
+                            + '&nbsp' + '<a href="/guestbook/infopopup?idx=' + addr.rowIdx + '" style="padding:0.2px;font-size:0.7em;float:left;with:15%;color:blue" target="_blank">' + '_info' + '</a>'
+                            ,
 
 
 
@@ -273,8 +396,8 @@
                         // };
 
                         // Json Object를 저장하기
-                        //localStorage.setItem("cast" + rownum , JSON.stringify(cast));
-                        localStorage.setItem("realeItem" + rownum , JSON.stringify(realeItems[rownum]));
+
+                        localStorage.setItem("realeItem" + rownum , JSON.stringify(realeItems[rownum-1]));
                         //출처: https://kgu0724.tistory.com/229 [병아리 개발자의 이야기:티스토리]
 
                     //iwPosition = new daum.maps.LatLng(positions[i].latlng); //인포윈도우 표시 위치입니다
