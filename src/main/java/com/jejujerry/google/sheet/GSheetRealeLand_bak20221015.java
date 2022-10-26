@@ -22,11 +22,7 @@ import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
-
-//import static jdk.javadoc.internal.tool.Main.execute;
 
 
 //Google Cloud Platform 사용자인증정보 > OAuth 2.0클라이언트ID - 다운로드
@@ -34,7 +30,7 @@ import java.util.stream.Collectors;
 //클라이언트보안비밀번호 : umI1Xxjw3-5avX8Hk3sTZMRP
 // JSON 다운로드  : 요건 src > main > java > resources 에다가 client_secret.json 두기
 
-public class GSheetRealeLand {
+public class GSheetRealeLand_bak20221015 {
 
     //List<RealeItem> realeItems;
 
@@ -63,7 +59,7 @@ public class GSheetRealeLand {
 //    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = GSheetRealeLand.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = GSheetRealeLand_bak20221015.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
         }
@@ -121,29 +117,12 @@ public class GSheetRealeLand {
                 .build();
 
         //System.out.println("getRealeLand 리스펀스생성전");
-
         ValueRange response = service.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();
 
-        //ValueRange response = service.spreadsheets().values().get(spreadsheetId, '=QUERY(' + sheetname +'!A1:W,"select A,B,C",0)').execute();
-        //ValueRange response = service.spreadsheets().values().get(spreadsheetId, "=QUERY('매매_건축할토지'!A1:W,\"select A,B,C, 1\")").execute();
-
-        //String query = "=query(매매_건축할토지!A1:W, select *)";
-        //ValueRange response = service.spreadsheets().values().get(spreadsheetId, query).execute();
-        //ValueRange response = service.spreadsheets().values().get(spreadsheetId, "=QUERY(sheetname +\"!A1:W\",\"SELECT A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U\" , 1)").execute();
-
-        //QUERY(pnucode!$A$1:$C, "select A where B contains '" & trim(B2) & "'"
-
         //System.out.println("getRealeLand 밸류즈생성전");
-        //List<List<Object>> values = response.getValues();
-
-
-
-
         List<List<Object>> values = response.getValues();
-
-
         System.out.println("response.getValues() : " + response.getValues());
 
 
@@ -217,15 +196,8 @@ public class GSheetRealeLand {
             }
         }
 
-        //System.out.println("realeItems.getAds() : " + realeItems.toString());
-        System.out.println("getRealeLand 리턴");
+        //System.out.println("getRealeLand 리턴");
         return realeItems;
-
-
-        //필터를 거는 곳곳!!
-//        List<RealeItem> fiteredRealeItems = realeItems.stream().filter(r -> "5013025325114000000".equals(r.getPnuCode())).collect(Collectors.toList());
-//        System.out.println("fiteredRealeItems.size() : " + fiteredRealeItems.size());
-//        return fiteredRealeItems;
     }
 
     public String getPNUCODEsimple(String pnupre, String addrName2)  throws IOException, GeneralSecurityException {

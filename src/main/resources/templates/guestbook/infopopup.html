@@ -6,16 +6,18 @@
 
 </head>
 <body>
-<div style="float:left;with:50%;">ridx &nbsp</div>
-<div style="float:left;with:50%;" th:text="${#httpServletRequest.getParameter('idx')}"
-     th:unless="${#httpServletRequest.getParameter('idx') == null}">
-    Show some error msg
-</div>
+<!--<div style="float:left;with:50%;">ridx &nbsp</div>-->
+<!--<div style="float:left;with:50%;" th:text="${#httpServletRequest.getParameter('idx')}"-->
+<!--     th:unless="${#httpServletRequest.getParameter('idx') == null}">-->
+<!--    Show some error msg-->
+<!--</div>-->
 
 <script th:inline="javascript">
     //console.info([[${#httpServletRequest.getParameter('idx')}]]);
     var itemIdx = [[${#httpServletRequest.getParameter('idx')}]];
-    //console.log("itemIdx : " + itemIdx);
+    var pageName = [[${#httpServletRequest.getParameter('pageName')}]];
+    console.log("itemIdx : " + itemIdx);
+    console.log("pageName : " + pageName);
 </script>
 
 <!--<div id="infodiv" style="padding:0.2px;font-size:0.8em">-->
@@ -48,45 +50,59 @@
 
 
         // 아래같은 방법으로 템플릿 구분시키자 (광고/ ...... )
-        // infodiv1  토지템플릿
-        // infodiv2  주택템플릿
-        // infodiv3  상가주택템플릿
-        // infodiv4  공동주택템플릿
-        // infodiv5  임대차템플릿
-        // infodiv6  임대차상가템플릿
+        // pageName 에 따라 if문 통해서 텍스트 커스터마이징
 
 
-        var infodiv1 = document.createElement('infodiv1');
+        let infodiv1 = document.createElement('infodiv1');
         infodiv1.className = "baseinfo";
         //infodiv1.className = "absolutePosition backgroundColor";
         //infodiv1.style.left = clientRect.left * 2;
         //infodiv1.style.top = clientRect.top;
-        infodiv1.innerHTML = '<div style="font-size:1.3em;color:darkred">&nbsp&nbsp' + realeItem.pageName + '</div>';
-        infodiv1.innerHTML += "<br><br>";
-        infodiv1.innerHTML += '<div style="font-size:1.1em;color:orangered">' + "_______ INPUT BOX 자동화 begin_______" + '</div>';
+        // infodiv1.innerHTML += '<div style="font-size:1.3em;color:darkred">' + itemIdx + '</div>';
+        // infodiv1.innerHTML += '<div style="font-size:1.3em;color:darkred">' + pageName + '</div>';
+
+
+        infodiv1.innerHTML = '<div style="font-size:1.1em;color:orangered">' + "_______ INPUT BOX 자동화 begin_______" + '</div>';
+        infodiv1.innerHTML += "<br>itemIdx : " + itemIdx;
+        infodiv1.innerHTML += "<br>pageName : " + pageName;
+        infodiv1.innerHTML += '<br><a href="' + realeItem.link1 + '" style="padding:0.2px;font-size:1.3em;color:blue" target="_blank">' + 'DISCO 링크' + '</a>'
         infodiv1.innerHTML += "<br>*상세정보 : " + realeItem.addrName + ", " + realeItem.addrName2 + ', ' + realeItem.addrName3;
         infodiv1.innerHTML += "<br>*매물명 : " + realeItem.title;
-        infodiv1.innerHTML += "<br>*면적 m2: " + realeItem.smeter + "     (참고 : " + realeItem.py + ")";
-        infodiv1.innerHTML += "<br>평당금액1 (*공급면적) : " + realeItem.dang;
-        infodiv1.innerHTML += "<br>평당금액2 (*전용면적) : " + realeItem.dang2;
+        //infodiv1.innerHTML += "<br>*면적 m2: " + realeItem.smeter + "     (참고 : " + realeItem.py + ")";
+
+        if(pageName == "매매_주택"){
+            infodiv1.innerHTML += "<br>" + realeItem.smeter ;
+            infodiv1.innerHTML += "<br>*공급면적 m2: : " + realeItem.dang;
+            infodiv1.innerHTML += "<br>*전용면적 m2: : " + realeItem.dang2;
+            infodiv1.innerHTML += "<br>평: " + realeItem.py ;
+
+        }else{
+            infodiv1.innerHTML += "<br>*면적 m2: " + realeItem.smeter + "     (면적 평 : " + realeItem.py + ")";
+            infodiv1.innerHTML += "<br>평당금액1 : " + realeItem.dang;
+            infodiv1.innerHTML += "<br>평당금액2 : " + realeItem.dang2;
+        }
+
+
+
         infodiv1.innerHTML += "<br>*매매금 (*보증금 / *임차금) : " + realeItem.amt + " / " + realeItem.amt2;
         infodiv1.innerHTML += "<br>지목 (권리금) : " + realeItem.category;
         infodiv1.innerHTML += "<br>지역 : " + realeItem.zone;
         infodiv1.innerHTML += "<br>참고 설명 : " + realeItem.explain;
         infodiv1.innerHTML += "<br>참고 평가 : " + realeItem.evaluation;
-        infodiv1.innerHTML += "<br>참고 등록일 : " + realeItem.regDate;
+        infodiv1.innerHTML += "<br>참고 질문 : " + realeItem.question;
+        infodiv1.innerHTML += "<br>등록일 : " + realeItem.regDate;
 
         infodiv1.innerHTML += "<br><br>";
         infodiv1.innerHTML += '<div style="font-size:1.1em;color:orangered">' + "_______ INPUT BOX 비자동화 샘플 텍스트 begin_______" + '</div>';
         infodiv1.innerHTML += "월관리비 : 80000";
         infodiv1.innerHTML += "<br>방향 : 남향";
-        infodiv1.innerHTML += "<br>방수/욕실수 : 방3/화2/거실/베란다/알파룸/테라스";
-        infodiv1.innerHTML += "<br>입주가능일 : 협의입주(약2주예상)    2019.3.8";
-        infodiv1.innerHTML += "<br>건축물일자(사용승인일) : 2019.3.8";
+        infodiv1.innerHTML += "<br>방수/욕실수 : 방/화/거실/베란다/알파룸/테라스";
+        infodiv1.innerHTML += "<br>입주가능일 : 협의입주(약2주예상)    2021..";
+        infodiv1.innerHTML += "<br>건축물일자(사용승인일) : 20..";
         infodiv1.innerHTML += "<br>해당동 : 가";
-        infodiv1.innerHTML += "<br>해당층/총층수 : 8/10";
-        infodiv1.innerHTML += "<br>총세대수 : 53";
-        infodiv1.innerHTML += "<br>총주차대수 : 59";
+        infodiv1.innerHTML += "<br>해당층/총층수 : /10";
+        infodiv1.innerHTML += "<br>총세대수 : 50";
+        infodiv1.innerHTML += "<br>총주차대수 : 60";
         infodiv1.innerHTML += "<br>건물종류 : 아파트";
         infodiv1.innerHTML += "<br>건물형태 : 공동주택";
 
@@ -94,15 +110,16 @@
         infodiv1.innerHTML += "<br><br>";
         infodiv1.innerHTML += '<div style="font-size:1.1em;color:green">' + "_______ 컨텐츠 샘플 텍스트  begin_______" + '</div>';
         infodiv1.innerHTML += "<B>sample 위치</B>";
-        infodiv1.innerHTML += "<br>[서홍동]에 위치한 깔끔한 [프리미엄성보파크] 입니다.";
-        infodiv1.innerHTML += "<br>[동홍동] 주거지역에 위치한 [동홍동부센트레빌 아파트] 입니다.";
-        infodiv1.innerHTML += "<br>막힘없는 바다뷰가 있는 [더스페이스블루] 입니다.";
-        infodiv1.innerHTML += "<br>서귀포 [동홍동] 주거지역에 위치한 풀옵션 원룸 입니다.";
+        infodiv1.innerHTML += "<br>[서홍동]에 위치한 깔끔한 [] 입니다.";
+        infodiv1.innerHTML += "<br>[동홍동] 주거지역에 위치한 [] 입니다.";
+        infodiv1.innerHTML += "<br>막힘없는 바다뷰가 있는 [] 입니다.";
+        infodiv1.innerHTML += "<br>서귀포 [] 주거지역에 위치한 풀옵션 원룸 입니다.";
         infodiv1.innerHTML += "<br>";
 
         infodiv1.innerHTML += "<br><B>sample 주변환경 및 인프라</B>";
         infodiv1.innerHTML += "<br>신시가지의 편의시설과 자연환경을 동시에 누리실 수 있습니다.";
         infodiv1.innerHTML += "<br>이마트, 롯데시네마, 시외버스터미널, 관공서, 은행, 병의원 등 이용이 용이하며 올레7길과 가까이 있습니다.";
+        infodiv1.innerHTML += "<br>주거지역의 편의시설과 자연환경을 동시에 누리실 수 있습니다.";
         infodiv1.innerHTML += "<br>서귀포 서홍동에 위치한 경관 최상 타운하우스 입니다.";
         infodiv1.innerHTML += "<br>홈플러스, 의료시설, 관공서, 학교, 도서관 등 주요 시설 접근성이 좋습니다.";
         infodiv1.innerHTML += "<br>주거지역으로 마트, 병원, 은행, 편의점 등 편의 시설을 갖추고 있습니다.";
@@ -111,6 +128,7 @@
 
         infodiv1.innerHTML += "<br><B>sample 방향 및 조망</B>";
         infodiv1.innerHTML += "<br>남향이고 막힘없는 뷰가 있는 고층입니다.";
+        infodiv1.innerHTML += "<br>막힘없는 뷰가 있는 고층 남향으로 채광이 매우 좋습니다.";
         infodiv1.innerHTML += "<br>남향으로 매우 채광이 좋습니다. (중정방향 아닌 좋은 물건입니다.)";
         infodiv1.innerHTML += "<br>답답함이 없고 로얄층인 3층입니다.";
         infodiv1.innerHTML += "<br>시내권에서 바다를 보면서 전원생활을 할 수 있는 드문 매물입니다.";
@@ -139,6 +157,7 @@
 
         infodiv1.innerHTML += "<br><B>sample 첨부사진</B>";
         infodiv1.innerHTML += "<br>※ 사진은 같은 타입 다른세대의 사진도 일부 함께 있습니다. ";
+        infodiv1.innerHTML += "<br>※ 사진은 다른세대, 참고용 사진입니다.";
         infodiv1.innerHTML += "<br>※ 사진은 구조와 색상톤 참고해주세요. 다른세대 사진입니다. ";
         infodiv1.innerHTML += "<br>※ 샘플하우스 사진입니다. 세대마다 구조 및 금액에 차이가 있을 수 있습니다. ";
         infodiv1.innerHTML += "<br>";
@@ -150,17 +169,29 @@
 
         infodiv1.innerHTML += "<br><br>";
         infodiv1.innerHTML += '<div style="font-size:1.1em;color:green">' + "_______ 비노출 샘플 텍스트  begin_______" + '</div>';
-        infodiv1.innerHTML += "<br>더스페이스블루 106동 202호";
-        infodiv1.innerHTML += "<br>현거주자 : 없음pw / 세입자만기퇴거예정(2023.. ) / 세입자중도퇴거예정(2023.. ) / 주인거주";
+        infodiv1.innerHTML += "<br>동 호";
+        infodiv1.innerHTML += "<br>현거주자 : 공실 / 주인거주 / 세입자만기퇴거 / 세입자중도퇴거";
+        infodiv1.innerHTML += "<br>PW : ";
         infodiv1.innerHTML += "<br>소유주 : ";
-        infodiv1.innerHTML += "<br>기타요구사항 : 6/17부터 들어갈 세입자 넣어야함."
+        infodiv1.innerHTML += "<br>비고 : 6/17부터 들어갈 세입자 넣어야함."
+        infodiv1.innerHTML += "<br>비고2 : 까지 네고됨";
         infodiv1.innerHTML += "<br>";
         infodiv1.innerHTML += "<br>";
         infodiv1.innerHTML += "<br>";
+        infodiv1.innerHTML += '<div style="font-size:1.1em;color:green">' + "_______ 간략한 요약 정보  begin_______" + '</div>';
         infodiv1.innerHTML += "<br>";
-        infodiv1.innerHTML += "<br>";
-        infodiv1.innerHTML += "<br>";
-        infodiv1.innerHTML += "<br>";
+        infodiv1.innerHTML += "<br>#"+realeItem.pageName;
+        infodiv1.innerHTML += "<br>" + realeItem.addrName + " " + realeItem.addrName2 + ' ' + realeItem.addrName3;
+        infodiv1.innerHTML += "<br>"+realeItem.title;
+        if( realeItem.pageName == "매매_주택" || realeItem.pageName == "매매_공동주택" || realeItem.pageName == "매매_상가주택" || realeItem.pageName == "전세_주거" || realeItem.pageName == "년월세_주거"  ){
+            infodiv1.innerHTML += "<br>면적 : " + realeItem.dang + " / " + realeItem.dang2 + "㎡";
+        }else{
+            infodiv1.innerHTML += "<br>면적 : " + realeItem.smeter + "㎡  (약" + realeItem.py + "평)";
+        }
+        infodiv1.innerHTML += "<br>금액 : " + realeItem.amt;
+        infodiv1.innerHTML += "<br>" + realeItem.explain;
+        infodiv1.innerHTML += "<br>" + realeItem.evaluation;
+        infodiv1.innerHTML += "<br>" + realeItem.question;
         infodiv1.innerHTML += "<br>";
 
         var infodiv2 = document.createElement('infodiv2');
