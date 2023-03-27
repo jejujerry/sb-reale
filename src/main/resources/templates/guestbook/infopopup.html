@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>정보 팝업</title>
+
+</head>
+<body>
+<!--<div style="float:left;with:50%;">ridx &nbsp</div>-->
+<!--<div style="float:left;with:50%;" th:text="${#httpServletRequest.getParameter('idx')}"-->
+<!--     th:unless="${#httpServletRequest.getParameter('idx') == null}">-->
+<!--    Show some error msg-->
+<!--</div>-->
+
+<script th:inline="javascript">
+    //console.info([[${#httpServletRequest.getParameter('idx')}]]);
+    var itemIdx = [[${#httpServletRequest.getParameter('idx')}]];
+    var pageName = [[${#httpServletRequest.getParameter('pageName')}]];
+    console.log("itemIdx : " + itemIdx);
+    console.log("pageName : " + pageName);
+</script>
+
+<!--<div id="infodiv" style="padding:0.2px;font-size:0.8em">-->
+<!--    <div id="infodiv1" style="padding:0.2px;font-size:0.7em"></div>-->
+<!--    <div id="infodiv2" style="padding:0.2px;font-size:0.6em"></div>-->
+<!--</div>-->
+
+<div id="infodiv" style="padding:0.2px;font-size:0.8em"></div>
+
+<script>
+    //var idxValue = request.getParameter('idx');
+    //console.log("idxValue : " + idxValue);
+
+    //아래 -2 를 한 이유
+    //map4base의   localStorage.setItem("realeItem" + rownum , JSON.stringify(realeItems[rownum]));
+    //소스에서 rownum이 1부터 시작했고 실제 sheet의 1row에는 columnName이 있기때문일듯
+
+    let realeItem = JSON.parse(localStorage.getItem( "realeItem" + (itemIdx -1) ));
+    //출처: https://kgu0724.tistory.com/229 [병아리 개발자의 이야기:티스토리]
+    //console.log(typeof realeItem);
+    //console.log(realeItem)
+    //console.log(realeItem.addrName);
+
+    ViewInfoDiv();
+
+    function ViewInfoDiv() {
+        const target = document.getElementById('infodiv'); // 요소의 id 값이 target이라 가정
+        const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+        const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
+
+
+        // 아래같은 방법으로 템플릿 구분시키자 (광고/ ...... )
+        // pageName 에 따라 if문 통해서 텍스트 커스터마이징
+
+
+        let infodiv1 = document.createElement('infodiv1');
+        infodiv1.className = "baseinfo";
+        //infodiv1.className = "absolutePosition backgroundColor";
+        //infodiv1.style.left = clientRect.left * 2;
+        //infodiv1.style.top = clientRect.top;
+        // infodiv1.innerHTML += '<div style="font-size:1.3em;color:darkred">' + itemIdx + '</div>';
+        // infodiv1.innerHTML += '<div style="font-size:1.3em;color:darkred">' + pageName + '</div>';
+
+
+        infodiv1.innerHTML = '<div style="font-size:1.1em;color:orangered">' + "_______ INPUT BOX 자동화 begin_______" + '</div>';
+        infodiv1.innerHTML += "<br>itemIdx : " + itemIdx;
+        infodiv1.innerHTML += "<br>pageName : " + pageName;
+        infodiv1.innerHTML += '<br><a href="' + realeItem.link1 + '" style="padding:0.2px;font-size:1.3em;color:blue" target="_blank">' + 'DISCO 링크' + '</a>'
+        infodiv1.innerHTML += "<br>*상세정보 : " + realeItem.addrName + ", " + realeItem.addrName2 + ', ' + realeItem.addrName3;
+        infodiv1.innerHTML += "<br>*매물명 : " + realeItem.title;
+        //infodiv1.innerHTML += "<br>*면적 m2: " + realeItem.smeter + "     (참고 : " + realeItem.py + ")";
+
+        if(pageName == "매매_주택"){
+            infodiv1.innerHTML += "<br>" + realeItem.smeter ;
+            infodiv1.innerHTML += "<br>*공급면적 m2: : " + realeItem.dang;
+            infodiv1.innerHTML += "<br>*전용면적 m2: : " + realeItem.dang2;
+            infodiv1.innerHTML += "<br>평: " + realeItem.py ;
+
+        }else{
+            infodiv1.innerHTML += "<br>*면적 m2: " + realeItem.smeter + "     (면적 평 : " + realeItem.py + ")";
+            infodiv1.innerHTML += "<br>평당금액1 : " + realeItem.dang;
+            infodiv1.innerHTML += "<br>평당금액2 : " + realeItem.dang2;
+        }
+
+
+
+        infodiv1.innerHTML += "<br>*매매금 (*보증금 / *임차금) : " + realeItem.amt + " / " + realeItem.amt2;
+        infodiv1.innerHTML += "<br>지목 (권리금) : " + realeItem.category;
+        infodiv1.innerHTML += "<br>지역 : " + realeItem.zone;
+        infodiv1.innerHTML += "<br>참고 설명 : " + realeItem.explain;
+        infodiv1.innerHTML += "<br>참고 평가 : " + realeItem.evaluation;
+        infodiv1.innerHTML += "<br>참고 질문 : " + realeItem.question;
+        infodiv1.innerHTML += "<br>등록일 : " + realeItem.regDate;
+
+        infodiv1.innerHTML += "<br><br>";
+        infodiv1.innerHTML += '<div style="font-size:1.1em;color:orangered">' + "_______ INPUT BOX 비자동화 샘플 텍스트 begin_______" + '</div>';
+        infodiv1.innerHTML += "월관리비 : 80000";
+        infodiv1.innerHTML += "<br>방향 : 남향";
+        infodiv1.innerHTML += "<br>방수/욕실수 : 방/화/거실/베란다/알파룸/테라스";
+        infodiv1.innerHTML += "<br>입주가능일 : 협의입주(약2주예상)    2021..";
+        infodiv1.innerHTML += "<br>건축물일자(사용승인일) : 20..";
+        infodiv1.innerHTML += "<br>해당동 : 가";
+        infodiv1.innerHTML += "<br>해당층/총층수 : /10";
+        infodiv1.innerHTML += "<br>총세대수 : 50";
+        infodiv1.innerHTML += "<br>총주차대수 : 60";
+        infodiv1.innerHTML += "<br>건물종류 : 아파트";
+        infodiv1.innerHTML += "<br>건물형태 : 공동주택";
+
+
+        infodiv1.innerHTML += "<br><br>";
+        infodiv1.innerHTML += '<div style="font-size:1.1em;color:green">' + "_______ 컨텐츠 샘플 텍스트  begin_______" + '</div>';
+        infodiv1.innerHTML += "<B>sample 위치</B>";
+        infodiv1.innerHTML += "<br>[서홍동]에 위치한 깔끔한 [] 입니다.";
+        infodiv1.innerHTML += "<br>[동홍동] 주거지역에 위치한 [] 입니다.";
+        infodiv1.innerHTML += "<br>막힘없는 바다뷰가 있는 [] 입니다.";
+        infodiv1.innerHTML += "<br>서귀포 [] 주거지역에 위치한 풀옵션 원룸 입니다.";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br><B>sample 주변환경 및 인프라</B>";
+        infodiv1.innerHTML += "<br>신시가지의 편의시설과 자연환경을 동시에 누리실 수 있습니다.";
+        infodiv1.innerHTML += "<br>이마트, 롯데시네마, 시외버스터미널, 관공서, 은행, 병의원 등 이용이 용이하며 올레7길과 가까이 있습니다.";
+        infodiv1.innerHTML += "<br>주거지역의 편의시설과 자연환경을 동시에 누리실 수 있습니다.";
+        infodiv1.innerHTML += "<br>서귀포 서홍동에 위치한 경관 최상 타운하우스 입니다.";
+        infodiv1.innerHTML += "<br>홈플러스, 의료시설, 관공서, 학교, 도서관 등 주요 시설 접근성이 좋습니다.";
+        infodiv1.innerHTML += "<br>주거지역으로 마트, 병원, 은행, 편의점 등 편의 시설을 갖추고 있습니다.";
+        infodiv1.innerHTML += "<br>상업지역으로 마트, 병원, 은행, 편의점 등 편의 시설을 갖추고 있습니다.";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br><B>sample 방향 및 조망</B>";
+        infodiv1.innerHTML += "<br>남향이고 막힘없는 뷰가 있는 고층입니다.";
+        infodiv1.innerHTML += "<br>막힘없는 뷰가 있는 고층 남향으로 채광이 매우 좋습니다.";
+        infodiv1.innerHTML += "<br>남향으로 매우 채광이 좋습니다. (중정방향 아닌 좋은 물건입니다.)";
+        infodiv1.innerHTML += "<br>답답함이 없고 로얄층인 3층입니다.";
+        infodiv1.innerHTML += "<br>시내권에서 바다를 보면서 전원생활을 할 수 있는 드문 매물입니다.";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br><B>sample 리모델링</B>";
+        infodiv1.innerHTML += "<br>싱크대 리모델링되어 있고, 전반적으로 깔끔합니다. 벽지도 새로해드립니다~";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br><B>sample 외부 외장 내부 내장</B>";
+        infodiv1.innerHTML += "<br># 외부 : 잔디정원, 주차장2";
+        infodiv1.innerHTML += "<br># 외장 : 파벽돌과 스타코 마감";
+        infodiv1.innerHTML += "<br># 내부 : 현관, 거실, 주방, 욕실2, 창고, 다용도실";
+        infodiv1.innerHTML += "<br># 내장 : ";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br><B>sample 옵션</B>";
+        infodiv1.innerHTML += "<br># 옵션 : 시스템에어컨4, 2층베란다 가벽벽체시공, 야외수도, CCTV설비, 붙박이장 등";
+        infodiv1.innerHTML += "<br># 옵션 : 시스템에어컨, 빌트인냉장고, 하이라이트(취사), TV, 세탁기, 버티컬, 붙박이장 등 옵션으로 제공됩니다. (사진에는 없지만 전자렌지도 옵션으로 제공됩니다.)\n" +
+            "        고급 내/외장재를 사용하였고 시스테에어컨2, 빌트인냉장고, 광파오븐, 가스렌지, 1구하이라이트, 드레스룸, 화장대, 붙박이장, 모바일원격보안컨트롤러 등을 갖추고 있습니다.";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br><B>sample 공용시설</B>";
+        infodiv1.innerHTML += "<br>경비실과, 무인택배함, 헬스장, 골프연습장 등을 갖추고 있습니다.";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br><B>sample 첨부사진</B>";
+        infodiv1.innerHTML += "<br>※ 사진은 같은 타입 다른세대의 사진도 일부 함께 있습니다. ";
+        infodiv1.innerHTML += "<br>※ 사진은 다른세대, 참고용 사진입니다.";
+        infodiv1.innerHTML += "<br>※ 사진은 구조와 색상톤 참고해주세요. 다른세대 사진입니다. ";
+        infodiv1.innerHTML += "<br>※ 샘플하우스 사진입니다. 세대마다 구조 및 금액에 차이가 있을 수 있습니다. ";
+        infodiv1.innerHTML += "<br>";
+
+        infodiv1.innerHTML += "<br>고객의 소중한 부동산, 안전하게 중개합니다.";
+        infodiv1.innerHTML += "<br>제주해밀 공인중개사 010-2656-6431";
+        infodiv1.innerHTML += "<br>";
+
+
+        infodiv1.innerHTML += "<br><br>";
+        infodiv1.innerHTML += '<div style="font-size:1.1em;color:green">' + "_______ 비노출 샘플 텍스트  begin_______" + '</div>';
+        infodiv1.innerHTML += "<br>동 호";
+        infodiv1.innerHTML += "<br>현거주자 : 공실 / 주인거주 / 세입자만기퇴거 / 세입자중도퇴거";
+        infodiv1.innerHTML += "<br>PW : ";
+        infodiv1.innerHTML += "<br>소유주 : ";
+        infodiv1.innerHTML += "<br>비고 : 6/17부터 들어갈 세입자 넣어야함."
+        infodiv1.innerHTML += "<br>비고2 : 까지 네고됨";
+        infodiv1.innerHTML += "<br>";
+        infodiv1.innerHTML += "<br>";
+        infodiv1.innerHTML += "<br>";
+        infodiv1.innerHTML += '<div style="font-size:1.1em;color:green">' + "_______ 간략한 요약 정보  begin_______" + '</div>';
+        infodiv1.innerHTML += "<br>";
+        infodiv1.innerHTML += "<br>#"+realeItem.pageName;
+        infodiv1.innerHTML += "<br>" + realeItem.addrName + " " + realeItem.addrName2 + ' ' + realeItem.addrName3;
+        infodiv1.innerHTML += "<br>"+realeItem.title;
+        if( realeItem.pageName == "매매_주택" || realeItem.pageName == "매매_공동주택" || realeItem.pageName == "매매_상가주택" || realeItem.pageName == "전세_주거" || realeItem.pageName == "년월세_주거"  ){
+            infodiv1.innerHTML += "<br>면적 : " + realeItem.dang + " / " + realeItem.dang2 + "㎡";
+        }else{
+            infodiv1.innerHTML += "<br>면적 : " + realeItem.smeter + "㎡  (약" + realeItem.py + "평)";
+        }
+        infodiv1.innerHTML += "<br>금액 : " + realeItem.amt;
+        infodiv1.innerHTML += "<br>" + realeItem.explain;
+        infodiv1.innerHTML += "<br>" + realeItem.evaluation;
+        infodiv1.innerHTML += "<br>" + realeItem.question;
+        infodiv1.innerHTML += "<br>";
+
+        var infodiv2 = document.createElement('infodiv2');
+        infodiv2.className = "absolutePosition backgroundColor";
+        infodiv2.style.left = clientRect.left * 2;
+        infodiv2.style.top = clientRect.top;
+        infodiv2.innerHTML = "innerHTML에 넣은것 중 해당 div 지우기 <Button onclick='RemoveDiv(this)'>지정 DIV 지우기</Button>";
+
+        target.append(infodiv1);
+        target.append(infodiv2);
+    }
+
+    function RemoveDiv(obj) {
+        console.log(obj);
+        console.log(obj.parentNode);
+        var parent = obj.parentNode;
+        parent.remove();
+    }
+    //[출처] Javascript Div 위에 Div 생성, 삭제|작성자 피실
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+<!--// # 아파트 - 년월세-->
+<!--// *상세주소 : 서홍동 2595-->
+<!--// 매물번호 :-->
+<!--// *매물명 : 프리미엄성보파크 남향 고층 년세-->
+<!--// *공급면적 : 110.74-->
+<!--// *전용면적 : 84.28-->
+<!--// *매매가 vs 전세가 vs 보증금 : 1000-->
+<!--// *공란 vs 년세 : 1300-->
+<!--// *권리금 :-->
+<!--// 월관리비 : 80000-->
+<!--// 방향 : 남향-->
+<!--// 방수/욕실수 : 방3/화2/거실/베란다/알파룸/테라스-->
+<!--// 입주가능일 : 협의입주(약2주예상)    2019.3.8-->
+<!--// 건축물일자(사용승인일) : 2019.3.8-->
+<!--// 해당동 : 가-->
+<!--// 해당층/총층수 : 8/10-->
+<!--// 총세대수 : 53-->
+<!--// 총주차대수 : 59-->
+<!--// 건물종류 : 아파트-->
+<!--// 건물형태 : 공동주택-->
+
+
+<!--// 컨텐츠-->
+<!--//-->
+<!--//-->
+<!--//-->
+<!--// &위치 : [서홍동]에 위치한 깔끔한 [프리미엄성보파크] 입니다.-->
+<!--//         [동홍동] 주거지역에 위치한 [동홍동부센트레빌 아파트] 입니다.-->
+<!--//         막힘없는 바다뷰가 있는 [더스페이스블루] 입니다.-->
+<!--//         서귀포 [동홍동] 주거지역에 위치한 풀옵션 원룸 입니다.-->
+<!--//-->
+<!--// &주변환경 및 인프라 : 신시가지의 편의시설과 자연환경을 동시에 누리실 수 있습니다.-->
+<!--//-->
+<!--// if(서홍동, 동홍동)-->
+<!--//     이마트, 롯데시네마, 시외버스터미널, 관공서, 은행, 병의원 등 이용이 용이하며 올레7길과 가까이 있습니다.-->
+<!--//     홈플러스, 의료시설, 관공서, 학교, 도서관 등 주요 시설 접근성이 좋습니다.-->
+<!--//     주거지역으로 마트, 병원, 은행, 편의점 등 편의 시설을 갖추고 있습니다.-->
+<!--//     상업지역으로 마트, 병원, 은행, 편의점 등 편의 시설을 갖추고 있습니다.-->
+<!--//     서귀포 서홍동에 위치한 경관 최상 타운하우스 입니다.-->
+<!--//-->
+<!--//-->
+<!--//-->
+<!--//     else if(서귀동)-->
+<!--//-->
+<!--//-->
+<!--//-->
+<!--// &방향 및 조망 : 남향이고 막힘없는 뷰가 있는 고층입니다.-->
+<!--//               남향으로 매우 채광이 좋습니다. (중정방향 아닌 좋은 물건입니다.)-->
+<!--//               답답함이 없고 로얄층인 3층입니다.-->
+<!--//               시내권에서 바다를 보면서 전원생활을 할 수 있는 드문 매물입니다.-->
+<!--//-->
+<!--// &리모델링 :싱크대 리모델링되어 있고, 전반적으로 깔끔합니다. 벽지도 새로해드립니다~-->
+<!--//-->
+<!--// &옵션 : 시스템에어컨, 빌트인냉장고, 하이라이트(취사), TV, 세탁기, 버티컬, 붙박이장 등 옵션으로 제공됩니다. (사진에는 없지만 전자렌지도 옵션으로 제공됩니다.)-->
+<!--//         고급 내/외장재를 사용하였고 시스테에어컨2, 빌트인냉장고, 광파오븐, 가스렌지, 1구하이라이트, 드레스룸, 화장대, 붙박이장, 모바일원격보안컨트롤러 등을 갖추고 있습니다.-->
+<!--//-->
+<!--// &공용시설 : 경비실과, 무인택배함 등을 갖추고 있으며-->
+<!--//-->
+<!--// &공통 :-->
+<!--//         ※ 사진은 같은 타입 다른세대의 사진도 일부 함께 있습니다.-->
+<!--//         ※ 사진은 구조와 색상톤 참고해주세요. 다른세대 사진입니다.-->
+<!--//         ※ 샘플하우스 사진입니다. 세대마다 구조 및 금액에 차이가 있을 수 있습니다.-->
+<!--//-->
+<!--//         고객의 소중한 부동산, 안전하게 중개합니다.-->
+<!--//         제주해밀 공인중개사 010-2656-6431-->
+<!--//-->
+<!--//-->
+<!--//-->
+<!--// &비노출 :-->
+<!--//         [더스페이스블루] [106동 202호]-->
+<!--//         현거주자 : 없음pw / 세입자만기퇴거예정(2023.. ) / 세입자중도퇴거예정(2023.. ) / 주인거주-->
+<!--//         수유주 :-->
+<!--//         기타요구사항 : 6/17부터 들어갈 세입자 넣어야함.-->

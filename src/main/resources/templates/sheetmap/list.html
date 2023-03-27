@@ -3,7 +3,15 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
-    <h1>  kakaomap </h1>
+    <th:block th:fragment="content">
 
+
+
+        <p> [[${reale1}]] </p>
+        <p> [[${reale2}]] </p>
+
+
+    </th:block>
 
 </th:block>
+</html>

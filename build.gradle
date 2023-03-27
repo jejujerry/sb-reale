@@ -29,6 +29,11 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -41,8 +46,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.4'
 
-    //compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
-    //compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
 
     //QueryDSL
     //querydsl 추가
@@ -99,7 +105,7 @@ compileQuerydsl {
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'SheetsQuickstart'
+//mainClassName = 'SheetsQuickstart'
 sourceCompatibility = 11
 targetCompatibility = 11
 version = '1.0'
@@ -108,16 +114,29 @@ repositories {
     mavenCentral()
 }
 
+
+bootJar{
+    archivesBaseName = 'map4base'
+    archiveFileName = 'map4base.jar'
+    archiveVersion = "0.0.0"
+}
+
+
+
+//dependencies 2개 요거들어가는순간 login창 생긴다. 이제 왜 안생기지?
 //https://www.youtube.com/watch?v=7luWlXkweEE
 //dependencies {
 //    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 //}
+//dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+//}
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-}
 
-dependencies {
+
+    implementation 'junit:junit:4.13.1'
+    implementation 'junit:junit:4.13.1'
     implementation 'com.google.api-client:google-api-client:1.31.5'
     implementation 'com.google.oauth-client:google-oauth-client-jetty:1.32.1'
     implementation 'com.google.apis:google-api-services-sheets:v4-rev20210629-1.32.1'
